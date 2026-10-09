@@ -1,52 +1,36 @@
 import heapq
-
 class JobScheduler:
     def __init__(self):
-        """Initializes an empty list to act as our Max Heap."""
         self.heap = []
-
     def insert_job(self, priority: int, job_name: str):
-        """a) Insert a job into the scheduler."""
         heapq.heappush(self.heap, (-priority, job_name))
         print(f"\n[Success] Inserted Job: '{job_name}' with Priority {priority}")
-
     def delete_highest_priority(self):
-        """b) Delete (and process) the job with the highest priority."""
         if not self.heap:
             print("\n[Notice] Scheduler is empty. No jobs to process.")
             return None
-        
         neg_priority, job_name = heapq.heappop(self.heap)
         actual_priority = -neg_priority
         print(f"\n[Processed & Deleted] Job: '{job_name}' (Priority {actual_priority})")
         return job_name
-
     def peek_highest_priority(self):
-        """c) Peek at the job with the highest priority without removing it."""
         if not self.heap:
             print("\n[Notice] Scheduler is empty.")
             return None
-        
         neg_priority, job_name = self.heap[0]
         actual_priority = -neg_priority
         print(f"\n[Next Job] Name: '{job_name}' | Priority: {actual_priority}")
         return (job_name, actual_priority)
-
     def display_jobs(self):
-        """d) Display all jobs currently in the heap order."""
         if not self.heap:
             print("\n[Notice] Scheduler is empty.")
             return
-        
         print("\n--- Current Jobs in Heap Order ---")
         for neg_priority, job_name in self.heap:
             print(f" [Priority: {-neg_priority}] -> Job: {job_name}")
         print("-" * 35)
-
-
 if __name__ == "__main__":
     scheduler = JobScheduler()
-    
     while True:
         print("\n=== MAX HEAP JOB SCHEDULER ===")
         print("1. Insert a job")
